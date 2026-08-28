@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "dendrotherm-onset: Temperature-threshold estimation from dendrometer data"
+abstract: >
+  R pipeline for estimating species-specific temperature onset thresholds for
+  cambial growth using binomial generalised additive models (GAMs) fitted to
+  dendrometer time series. Includes HPC-parallelised hierarchical bootstrapping,
+  multi-window sensitivity analysis, and diagnostic tools for concurvity and
+  boundary behaviour, applied to 14 temperate tree species in NE Germany.
+repository-code: "https://github.com/smiljanicm/dendrotherm-onset"
+license: GPL-3.0
+# date-released: "YYYY-MM-DD"  # fill in on acceptance
+
+authors:
+  - family-names: "Smiljanić"
+    given-names: "Marko"
+    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
+    # affiliation: ""
+
+  # Add co-authors below — copy the block and fill in:
+  # - family-names: ""
+  #   given-names: ""
+  #   orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
+  #   affiliation: ""
+
+keywords:
+  - dendroecology
+  - cambial growth
+  - temperature thresholds
+  - generalised additive models
+  - dendrometers
+  - phenology
+  - bootstrapping
+  - temperate trees
+  - plant ecology
+
+references:
+  - type: article
+    title: ""        # fill in on acceptance
+    authors:
+      - family-names: "--"
+        given-names: "--"
+      # add co-authors here
+    journal: ""      # fill in on acceptance
+    year: 2026       # update on acceptance
+    doi: ""          # fill in on acceptance
