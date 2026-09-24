@@ -35,11 +35,9 @@ window_data <- clean_data %>%
   filter(between(doy, 60, 172))
 
 wide_data <- clean_data %>%
-  mutate(doy = lubridate::yday(date)) %>%
   filter(between(doy, 32, 172))
 
 narrow_data <- clean_data %>%
-  mutate(doy = lubridate::yday(date)) %>%
   filter(between(doy, 91, 172))
 
 write_csv(window_data, './data/gs_data.csv')
@@ -47,5 +45,3 @@ write_csv(window_data, './data/gs_data.csv')
 write_csv(wide_data, './data/wide_data.csv')
 
 write_csv(narrow_data, './data/narrow_data.csv')
-
-
