@@ -11,19 +11,19 @@ if(!interactive()) {
   # Use the first argument
   suff <- args[1]
 } else {
-  suff <- 'full_gdd'
+  suff <- 'full'
 }
 
-diag_file <- paste0('./postproc/output/diag_', suff, '.csv')
-seg_file <- paste0('./postproc/output/seg_', suff, '.csv')
-thresh_file <- paste0('./output/thresholds_', suff, '.csv')
-threshDE_file <- paste0('./output/german/thresholds_', suff, '.csv')
+diag_file <- paste0('./hpc/output/diag_', suff, '.csv')
+seg_file <- paste0('./hpc/output/seg_', suff, '.csv')
+thresh_file <- paste0('./output/tables/thresholds_', suff, '.csv')
+threshDE_file <- paste0('./output/tables/german/thresholds_', suff, '.csv')
 
 df <- read_csv(seg_file)
 clean_df <- df
 
 thresh <- 
-clean_df %>%
+  clean_df %>%
   filter(grepl('_10', model_name)) %>%
   mutate(datarange = case_when(grepl('gs_', datafile) ~ '60-172',
                                grepl('wide_', datafile) ~ '32-172',
@@ -81,8 +81,3 @@ thresh %>%
 
 thresh %>%
   write_csv2(threshDE_file)
-
-
-thresh %>% filter(species == 'Abies alba') %>%
-  filter(datarange=='60-172')
-  

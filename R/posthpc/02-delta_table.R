@@ -5,10 +5,10 @@ if(!interactive()) {
   if (length(args) != 1) stop("Usage: compile_boots file_suffix")
   suff <- args[1]
 } else {
-  suff <- 'full_gdd'
+  suff <- 'full'
 }
 
-thresh_file <- paste0('./output/thresholds_', suff, '.csv')
+thresh_file <- paste0('./output/tables/thresholds_', suff, '.csv')
 
 clean_df <- read_csv(thresh_file)
 
@@ -111,7 +111,7 @@ delta_gdd_all <- delta_gdd_all %>%
   mutate(flag = na_if(flag, ""))
 
 # ── 5. Write ─────────────────────────────────────────────────────────────────
-delta_file <- paste0('./output/delta_table_', suff, '.csv')
-delta_fileDE <- paste0('./output/german/delta_table_', suff, '.csv')
+delta_file <- paste0('./output/tables/delta_table_', suff, '.csv')
+delta_fileDE <- paste0('./output/tables/german/delta_table_', suff, '.csv')
 write_csv(delta_gdd_all, delta_file, na = "")
 write_csv2(delta_gdd_all, delta_fileDE, na = "")

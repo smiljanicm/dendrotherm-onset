@@ -7,16 +7,16 @@ if(!interactive()) {
   if (length(args) != 1) stop("Usage: compile_boots file_suffix")
   suff <- args[1]
 } else {
-  suff <- 'full_gdd'
+  suff <- 'full'
 }
 
-thresh_file <- paste0('./output/thresholds_', suff, '.csv')
+thresh_file <- paste0('./output/tables/thresholds_', suff, '.csv')
 
 clean_df <- read_csv(thresh_file)
 
 con <- dbConnect(duckdb())
 
-diag_file <- paste0('./postproc/output/diag_', suff, '.csv')
+diag_file <- paste0('./hpc/output/diag_', suff, '.csv')
 
 conc_raw_all <- dbGetQuery(con, sprintf("
   SELECT species, model_name, boot_id, datafile, term, metric, value
@@ -59,7 +59,7 @@ conc_summary_all <- conc_raw_all %>%
     names_glue  = "{conc_type}_{.value}"
   )
 
-conc_file <- paste0('./output/concurvity_all_sweep_', suff, '.csv')
-conc_fileDE <- paste0('./output/german/concurvity_all_sweep_', suff, '.csv')
+conc_file <- paste0('./output/tables/concurvity_all_sweep_', suff, '.csv')
+conc_fileDE <- paste0('./output/tables/german/concurvity_all_sweep_', suff, '.csv')
 write_csv(conc_summary_all, conc_file)
 write_csv2(conc_summary_all, conc_fileDE)

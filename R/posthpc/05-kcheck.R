@@ -9,10 +9,10 @@ if(!interactive()) {
   }
   suff <- args[1]
 } else {
-  suff <- 'full_gdd'
+  suff <- 'full'
 }
 
-diag_file <- paste0('./postproc/output/diag_', suff, '.csv')
+diag_file <- paste0('./hpc/output/diag_', suff, '.csv')
 
 con <- dbConnect(duckdb())
 
@@ -62,8 +62,8 @@ kcheck_summary <- kcheck_raw %>%
     .groups = "drop"
   )
 
-kcheck_file <- paste0('./output/kcheck_summary_', suff, '.csv')
-kcheck_fileDE <- paste0('./output/german/kcheck_summary_', suff, '.csv')
+kcheck_file <- paste0('./output/tables/kcheck_summary_', suff, '.csv')
+kcheck_fileDE <- paste0('./output/tables/german/kcheck_summary_', suff, '.csv')
 write_csv(kcheck_summary, kcheck_file)
 write_csv2(kcheck_summary, kcheck_fileDE)
 

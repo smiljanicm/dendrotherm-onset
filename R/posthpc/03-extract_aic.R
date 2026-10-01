@@ -7,16 +7,16 @@ if(!interactive()) {
   if (length(args) != 1) stop("Usage: compile_boots file_suffix")
   suff <- args[1]
 } else {
-  suff <- 'full_gdd'
+  suff <- 'full'
 }
 
-thresh_file <- paste0('./output/thresholds_', suff, '.csv')
+thresh_file <- paste0('./output/tables/thresholds_', suff, '.csv')
 
 clean_df <- read_csv(thresh_file)
 
 con <- dbConnect(duckdb())
 
-diag_file <- paste0('./postproc/output/diag_', suff, '.csv')
+diag_file <- paste0('./hpc/output/diag_', suff, '.csv')
 
 aic_raw_all <- dbGetQuery(con, sprintf("
   SELECT species, model_name, boot_id, datafile, value AS aic
@@ -75,7 +75,7 @@ aic_summary_all <- aic_wide_all %>%
     .groups = "drop"
   )
 
-aic_file <- paste0('./output/aic_comparison_all_sweep_', suff, '.csv')
-aic_fileDE <- paste0('./output/german/aic_comparison_all_sweep_', suff, '.csv')
+aic_file <- paste0('./output/tables/aic_comparison_all_sweep_', suff, '.csv')
+aic_fileDE <- paste0('./output/tables/german/aic_comparison_all_sweep_', suff, '.csv')
 write_csv(aic_summary_all, aic_file)
 write_csv2(aic_summary_all, aic_fileDE)
