@@ -28,9 +28,9 @@ library(tidyverse)
 options(warn = 1)        # print warnings immediately as they occur, not at the end
 message("Logging started: ", Sys.time())
 
-source("./hpc/fit_models.R")
-source('./hpc/get_all_thresholds.R')
-source("./hpc/boot_func.R")
+source("./hpc/R/fit_models.R")
+source('./hpc/R/get_all_thresholds.R')
+source("./hpc/R/boot_func.R")
 
 if(interactive()) {
   datafile <- './data/wide_data.csv'
@@ -83,7 +83,7 @@ species_an <- function(sp, start = 1, end = NULL) {
       map_df(ty_draw, function(ty) sp_dat %>% filter(year == yr, tree_year == ty)) %>% mutate(i = i)
     })
     out <- boot_func(boot_dat, id = b, spec) %>% mutate(datafile = datafile)
-    filename = paste0('./hpc/hpc_out/bootseg_',sp,'_',en,'_',suff,'.csv')
+    filename = paste0('./hpc/temp/bootseg_',sp,'_',en,'_',suff,'.csv')
     print(filename)
     if(file.exists(filename)){
       out %>% 

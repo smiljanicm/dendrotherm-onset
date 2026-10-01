@@ -139,7 +139,7 @@ boot_func <- function(df_sp, id = 'test', spec = 'Fag') {
       })
     })
     
-    filename_diag = paste0('./hpc/hpc_out/bootdiag_',spec,'_',en,'_',suff,'.csv')
+    filename_diag = paste0('./hpc/temp/bootdiag_',spec,'_',en,'_',suff,'.csv')
     # print(filename_pred)
     
     if (file.exists(filename_diag)) {
