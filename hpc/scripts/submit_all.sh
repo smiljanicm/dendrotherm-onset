@@ -10,7 +10,7 @@ submit_jobs() {
     ids=()
     
     # Define your species list here
-    SPECIES_LIST=("Ulmus" "Tilia" "rubra" "robur" "Pseudotsuga" "Pinus" "Picea" "Larix" "Fagus" "Carpinus")
+    SPECIES_LIST=("Abies" "Acer" "Alnus" "Betula" "Ulmus" "Tilia" "rubra" "robur" "Pseudotsuga" "Pinus" "Picea" "Larix" "Fagus" "Carpinus")
 
     # Submit the generic analysis job for each species
     for species in "${SPECIES_LIST[@]}"; do
