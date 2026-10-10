@@ -1,0 +1,10 @@
+"metric","analysis","contrast","estimate","ci_low","ci_high","p"
+"min","min","diffuse-tracheid",3.3154,1.7695,4.8612,6e-04
+"min","min","ring-tracheid",1.6144,-0.198,3.4268,0.0757
+"min","min","diffuse-ring",1.701,0.1847,3.2173,0.0312
+"mean","mean","diffuse-tracheid",2.474,0.6699,4.2782,0.0117
+"mean","mean","ring-tracheid",0.6098,-1.4996,2.7192,0.5376
+"mean","mean","diffuse-ring",1.8642,-0.0484,3.7769,0.0551
+"max","max","diffuse-tracheid",1.0914,-0.1531,2.3359,0.0798
+"max","max","ring-tracheid",0.5128,-0.8703,1.8958,0.4318
+"max","max","diffuse-ring",0.5786,-0.2316,1.3889,0.1443
