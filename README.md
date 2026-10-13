@@ -91,6 +91,10 @@ Rscript R/summary/04_loyo_meta_analysis.R
 
 The leave-one-year-out (LOYO) script evaluates species with more than six observed years on the wide window and writes full and summary Brier-score tables. The summary scripts consume those and the postprocessed tables. `R/summary/02_anatomy_meta_analysis.R` defines a callable `run_anatomy_meta_analysis()` function; it needs `R/summary/01_meta.R` and explicit output filenames for its four result types. The remaining scripts in `R/summary/` create manuscript figures and related summaries; inspect their input and output paths before rerunning individual figures.
 
+### Within-site comparison
+
+The additional analysis tests whether species differences estimated across the network are consistent with differences among trees at the same site. `R/data/04_within_site_filter.R` combines the spring dataset with database site metadata for Ladebow and Demmin, writing `data/gs_within_site.csv` (also committed). `hpc/scripts/within_sites.sh` runs a paired-year, hierarchical bootstrap for the focal species at both sites; this uses years shared by all focal species at each site. After the arrays finish, compile their chunks separately with `Rscript hpc/R/compile_boots.R Ladebow` and `Rscript hpc/R/compile_boots.R Demmin`. `R/posthpc/06-within_sites.R` compares paired-bootstrap differences in relative 50% onset thresholds for daily mean and minimum temperature with the corresponding network differences, and writes `paper/tables/tableS4_thresholds_within_site_vs_network.csv`. Regenerating the site-filtered input requires the database connection configured in the data script.
+
 ## Main outputs and interpretation
 
 | Output | Contents |
@@ -100,6 +104,7 @@ The leave-one-year-out (LOYO) script evaluates species with more than six observ
 | `output/tables/aic_comparison_all_sweep_*.csv` | AIC comparisons across the GDD base-temperature sweep. |
 | `output/tables/concurvity_all_sweep_*.csv`, `kcheck_summary_*.csv` | GAM diagnostics. |
 | `output/tables/loyo_brier_full.csv`, `loyo_brier_summary.csv` | Held-out-year predictive Brier scores. |
+| `paper/tables/tableS4_thresholds_within_site_vs_network.csv` | Paired within-site species differences and comparison with network estimates. |
 | `paper/figures/`, `paper/tables/` | Selected manuscript-ready figures and tables. |
 
 The `full` and `restricted` suffixes refer to the available period and the post-2022 subset. Window labels in output tables use `60-172`, `32-172`, and `91-172`. Some generated tables are committed; rerunning scripts may overwrite them. Preserve a copy of any publication snapshot before regeneration.
