@@ -1,18 +1,18 @@
-=== Table 1: period, springs, dendrometer-years (tree_years_num)
-Acer pseudoplatanus      2016-2026  springs 11  dy 72
-Alnus glutinosa          2025-2026  springs  2  dy 21
-Betula pendula           2020-2026  springs  7  dy 29
-Carpinus betulus         2014-2026  springs 13  dy 106
-Fagus sylvatica          2014-2026  springs 13  dy 216
-Tilia cordata            2023-2026  springs  4  dy 47
-Quercus robur            2014-2026  springs 13  dy 306
-Quercus rubra            2024-2026  springs  3  dy 14
-Ulmus laevis             2025-2026  springs  2  dy 14
-Abies alba               2024-2026  springs  3  dy 14
-Larix decidua            2023-2026  springs  4  dy 40
-Picea abies              2023-2026  springs  4  dy 9
-Pinus sylvestris         2020-2026  springs  7  dy 37
-Pseudotsuga menziesii    2023-2026  springs  4  dy 49
+=== Table 1: period, springs, dendrometer-years (tree_years_num), number of trees
+Acer pseudoplatanus      2016-2026  springs 11  dy  72 trees 15
+Alnus glutinosa          2025-2026  springs  2  dy  21 trees 19
+Betula pendula           2020-2026  springs  7  dy  29 trees  5
+Carpinus betulus         2014-2026  springs 13  dy 106 trees 17
+Fagus sylvatica          2014-2026  springs 13  dy 216 trees 41
+Tilia cordata            2023-2026  springs  4  dy  47 trees 17
+Quercus robur            2014-2026  springs 13  dy 306 trees 63
+Quercus rubra            2024-2026  springs  3  dy  14 trees  5
+Ulmus laevis             2025-2026  springs  2  dy  14 trees  7
+Abies alba               2024-2026  springs  3  dy  14 trees  5
+Larix decidua            2023-2026  springs  4  dy  40 trees 13
+Picea abies              2023-2026  springs  4  dy   9 trees  3
+Pinus sylvestris         2020-2026  springs  7  dy  37 trees 10
+Pseudotsuga menziesii    2023-2026  springs  4  dy  49 trees 15
 total dendrometer-years 974
 
 === Table 2: P = 0.50, DOY 60-172, full period: median [95 % CI]; attainment; bootstrap replicates attained

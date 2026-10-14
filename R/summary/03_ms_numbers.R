@@ -89,7 +89,7 @@ run_ms_numbers <- function() {
   # Table 1
   # ------------------------------------------------------------
   
-  P("=== Table 1: period, springs, dendrometer-years (tree_years_num)")
+  P("=== Table 1: period, springs, dendrometer-years (tree_years_num), number of trees")
   
   # Python sorts anatomy labels alphabetically for Table 1.
   species_order <- names(ANAT)[order(unname(ANAT), names(ANAT))]
@@ -98,12 +98,13 @@ run_ms_numbers <- function() {
     r <- gd[sp, , drop = FALSE]
     
     P(sprintf(
-      "%-24s %d-%d  springs %2d  dy %d",
+      "%-24s %d-%d  springs %2d  dy %3d trees %2d",
       sp,
       as.integer(r$min_year),
       as.integer(r$max_year),
       as.integer(r$max_year - r$min_year + 1),
-      as.integer(r$tree_years_num)
+      as.integer(r$tree_years_num),
+      as.integer(r$number_of_trees)
     ))
   }
   
