@@ -7,6 +7,7 @@
 # Inputs:  data/output/
 # Outputs: results/ms_numbers_report.txt
 #          results/table3_cv.md
+library(tidyverse)
 
 run_ms_numbers <- function() {
   D <- file.path("output", "tables")
@@ -89,22 +90,55 @@ run_ms_numbers <- function() {
   # Table 1
   # ------------------------------------------------------------
   
-  P("=== Table 1: period, springs, dendrometer-years (tree_years_num), number of trees")
+  P("=== Table 1: period, springs, dendrometer-years (tree_years_num), number of trees, dbh range")
   
   # Python sorts anatomy labels alphabetically for Table 1.
   species_order <- names(ANAT)[order(unname(ANAT), names(ANAT))]
+  dbh_df <- data.frame(species = c(
+  "Larix decidua",
+  "Abies alba",
+  "Picea abies",
+  "Pinus sylvestris",
+  "Pseudotsuga menziesii",
+  "Quercus robur",
+  "Quercus rubra",
+  "Ulmus laevis",
+  "Fagus sylvatica",
+  "Carpinus betulus",
+  "Acer pseudoplatanus",
+  "Tilia cordata",
+  "Betula pendula",
+  "Alnus glutinosa"
+  ),
+  dbh = c(
+  "38.4 ± 9.5",   
+  "73.0 ± 6.5",
+  "39.8 ± 11.4",
+  "43.3 ± 6.8",
+  "51.1 ± 8.4",
+  "59.7 ± 22.2",
+  "39.8 ± 5.7",
+  "49.4 ± 9.4",
+  "58.7 ± 27.6",
+  "41.8 ± 11.0",
+  "51.9 ± 8.7",
+  "48.9 ± 7.5",
+  "36.6 ± 7.6",
+  "32.0 ± 4.5"
+  ))
   
+  gd <- gd %>% left_join(dbh_df) %>% column_to_rownames("species")
   for (sp in species_order) {
     r <- gd[sp, , drop = FALSE]
-    
     P(sprintf(
-      "%-24s %d-%d  springs %2d  dy %3d trees %2d",
+      "%-24s %d-%d  springs %2d  dy %3d trees %2d %-24s",
       sp,
       as.integer(r$min_year),
       as.integer(r$max_year),
       as.integer(r$max_year - r$min_year + 1),
       as.integer(r$tree_years_num),
-      as.integer(r$number_of_trees)
+      as.integer(r$number_of_trees),
+      r$dbh
     ))
   }
   
