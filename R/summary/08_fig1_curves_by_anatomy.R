@@ -513,7 +513,7 @@ left_align_row <- function(p, anatomy_label, anatomy_colour,
 p_combined <- (
   left_align_row(
     p_row1,
-    anatomy_label = "tracheid-bearing",
+    anatomy_label = "coniferous",
     anatomy_colour = "#2E6D9E"
   ) /
     left_align_row(

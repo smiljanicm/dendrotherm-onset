@@ -15,7 +15,7 @@ FIG_COL <- c(
 FIG_PCH <- c(tracheid = 24, ring = 22, diffuse = 21)
 
 FIG_LABEL <- c(
-  tracheid = "Tracheid-bearing",
+  tracheid = "Coniferous",
   ring = "Ring / semi-ring-porous",
   diffuse = "Diffuse-porous"
 )
