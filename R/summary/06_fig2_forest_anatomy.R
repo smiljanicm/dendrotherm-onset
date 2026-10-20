@@ -201,14 +201,12 @@ forest_panel <- function(metric, xlim, ref = NULL,
     variance_text = sprintf(
       "\u03c4\u00b2 = 0 with and without anatomy (variance explained not defined)")
   }
+  f_formatted <- sprintf("%.2f", omnibus["F"])
+  p_formatted <- sprintf("%.2f", omnibus["p"])
   list(
-    test = sprintf(
-      "Anatomy: F(%d, %d) = %.2f, p = %.3f",
-      as.integer(omnibus["df1"]),
-      as.integer(omnibus["df2"]),
-      omnibus["F"], omnibus["p"]
+    test = bquote(
+      "Anatomy: " * italic(F)(.(as.integer(omnibus["df1"])), .(as.integer(omnibus["df2"]))) == .(f_formatted) * ", p = " * .(p_formatted)
     ),
-    
     variance = variance_text,
     tau = sprintf(
       "(\u03c4\u00b2 %.2f \u2192 %.2f)",
@@ -237,7 +235,7 @@ fig_png(
     txt <- forest_panel("mean", c(6, 23.5), ref = 8.4, meta = meta)
     title(xlab = "Onset threshold, daily mean (°C)")
     
-    caption <- c(
+    caption <- list(
       txt$test,
       paste(txt$variance, txt$tau),
       paste(txt$dt, txt$dr, sep = ";  ")
@@ -245,16 +243,16 @@ fig_png(
     
     for (i in seq_along(caption)) {
       mtext(
-        caption[i], side = 1, outer = TRUE,
+        caption[[i]], side = 1, outer = TRUE,
         line = i - 0.5, adj = 0.02,
         cex = 0.82, col = "grey25"
       )
-    }
+    }  
   }
 )
 
 fig_png(
-  "figS1a_forest_anatomy_dailymin_rel.png",
+  "figS2a_forest_anatomy_dailymin_rel.png",
   6.6, 6.2,
   function() {
     par(mar = c(3.4, 10, 1.5, 1), oma = c(3.5, 0, 0, 0))
@@ -265,7 +263,7 @@ fig_png(
     txt <- forest_panel("min", c(1, 15.5), ref = 4.1, meta = meta)
     title(xlab = "Onset threshold, daily mean (°C)")
     
-    caption <- c(
+    caption <- list(
       txt$test,
       paste(txt$variance, txt$tau),
       paste(txt$dt, txt$dr, sep = ";  ")
@@ -273,7 +271,7 @@ fig_png(
     
     for (i in seq_along(caption)) {
       mtext(
-        caption[i], side = 1, outer = TRUE,
+        caption[[i]], side = 1, outer = TRUE,
         line = i - 0.5, adj = 0.02,
         cex = 0.82, col = "grey25"
       )
@@ -282,7 +280,7 @@ fig_png(
 )
 
 fig_png(
-  "figS1b_forest_anatomy_dailymax_rel.png",
+  "figS2b_forest_anatomy_dailymax_rel.png",
   6.6, 6.2,
   function() {
     par(mar = c(3.4, 10, 1.5, 1), oma = c(3.5, 0, 0, 0))
@@ -293,7 +291,7 @@ fig_png(
     txt <- forest_panel("max", c(5, 30.5), ref = NULL, meta = meta)
     title(xlab = "Onset threshold, daily max (°C)")
     
-    caption <- c(
+    caption <- list(
       txt$test,
       paste(txt$variance, txt$tau),
       paste(txt$dt, txt$dr, sep = ";  ")
@@ -301,7 +299,7 @@ fig_png(
     
     for (i in seq_along(caption)) {
       mtext(
-        caption[i], side = 1, outer = TRUE,
+        caption[[i]], side = 1, outer = TRUE,
         line = i - 0.5, adj = 0.02,
         cex = 0.82, col = "grey25"
       )
@@ -310,7 +308,7 @@ fig_png(
 )
 
 fig_png(
-  "figS1_forest_anatomy_3metrics_rel.png",
+  "figS2_forest_anatomy_3metrics.png",
   12.5, 6.4,
   function() {
     layout(matrix(1:3, nrow = 1), widths = c(1.25, 1, 1))
@@ -348,11 +346,20 @@ fig_png(
         "Onset threshold, ", tolower(titles[i]), " (°C)"
       ))
       
-      caption <- unlist(txt, use.names = FALSE)
+      mtext(
+        paste0(letters[i],')'), 
+        side = 3, 
+        line = 1, 
+        adj = 0,      # Aligns to the left edge of the plot region
+        font = 2,     # Makes the letter bold
+        cex = 1.25    # Adjusts the size
+      )
+      
+      caption <- txt
       
       for (j in seq_along(caption)) {
         mtext(
-          caption[j], side = 1,
+          caption[[j]], side = 1,
           line = 3.2 + (j - 1) * 0.9,
           cex = 0.78, col = "grey25"
         )

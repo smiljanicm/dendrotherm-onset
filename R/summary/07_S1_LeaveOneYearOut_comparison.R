@@ -17,7 +17,7 @@ fig3_jitter <- c(
 )
 
 fig_png(
-  "figS2_LeaveOneYearOut_comparison.png",
+  "figS1_LeaveOneYearOut_comparison.png",
   9.2, 4.3,
   function() {
     f <- fig_read("loyo_brier_full.csv")
@@ -146,7 +146,7 @@ fig_png(
       if (pvalues[sp] < 0.05) {
         text(
           mean(sub$d) + 0.012, i - 1 + 0.30,
-          sprintf("p = %.3f", pvalues[sp]),
+          sprintf("p = %.2f", pvalues[sp]),
           adj = 0, cex = 0.8, col = "grey35"
         )
       }

@@ -63,7 +63,7 @@ species_meta <- tribble(
 )
 
 # Width of each individual species panel
-panel_width_mm <- 25
+panel_width_mm <- 35
 
 # ── Helper: build one row plot ───────────────────────────────────────────────
 
@@ -163,12 +163,12 @@ build_row_plot <- function(species_in_row, show_x_axis = FALSE) {
         x = pmin(
           pmax(onset_rel50_med, t_q05 + 0.5),
           t_q95 - 0.5
-        ),
+        ) + 1,
         y = 0.04,
         label = paste0(round(onset_rel50_med, 1), " °C"),
         colour = col
       ),
-      hjust = 0.5, size = 2.8,
+      hjust = 0, size = 2.8,
       inherit.aes = FALSE,
       na.rm = TRUE
     ) +
@@ -180,6 +180,7 @@ build_row_plot <- function(species_in_row, show_x_axis = FALSE) {
       x = -Inf, y = 0.97,
       hjust = -0.1, vjust = 1,
       size = 3,
+      fontface='italic',
       inherit.aes = FALSE
     ) +
     
@@ -220,128 +221,6 @@ build_row_plot <- function(species_in_row, show_x_axis = FALSE) {
   p
 }
 
-# build_row_plot <- function(species_in_row, show_x_axis = FALSE) {
-#   
-#   row_curves <- pred_curves %>%
-#     filter(species %in% species_in_row) %>%
-#     left_join(species_meta, by = "species") %>%
-#     mutate(species = factor(species, levels = species_in_row))
-#   
-#   row_thresh <- thresh_plot %>%
-#     filter(species %in% species_in_row) %>%
-#     left_join(species_meta, by = "species") %>%
-#     mutate(species = factor(species, levels = species_in_row))
-#   
-#   p <- ggplot(row_curves, aes(x = Temperature, y = fit)) +
-#     
-#     # Grey band: central 90% observed temperatures
-#     geom_rect(
-#       data = row_thresh,
-#       aes(xmin = t_q05, xmax = t_q95, ymin = -Inf, ymax = Inf),
-#       fill = "grey85", alpha = 0.4,
-#       inherit.aes = FALSE
-#     ) +
-#     
-#     # Coloured band: threshold confidence interval
-#     geom_rect(
-#       data = row_thresh,
-#       aes(
-#         xmin = onset_rel50_low, xmax = onset_rel50_high,
-#         ymin = -Inf, ymax = Inf, fill = col
-#       ),
-#       alpha = 0.20,
-#       inherit.aes = FALSE
-#     ) +
-#     scale_fill_identity() +
-#     
-#     # P = 0.50 reference line
-#     geom_hline(
-#       yintercept = 0.50, linetype = "dashed",
-#       colour = "grey60", linewidth = 0.4
-#     ) +
-#     
-#     # GAM curve
-#     geom_line(aes(colour = col), linewidth = 1.0) +
-#     scale_colour_identity() +
-#     
-#     # Dotted vertical at threshold
-#     geom_vline(
-#       data = row_thresh,
-#       aes(xintercept = onset_rel50_med, colour = col),
-#       linetype = "dotted", linewidth = 0.5,
-#       inherit.aes = FALSE
-#     ) +
-#     
-#     # Threshold point
-#     geom_point(
-#       data = row_thresh,
-#       aes(x = onset_rel50_med, y = 0.50, colour = col),
-#       size = 2.5, shape = 21, fill = "white",
-#       stroke = 1.2, inherit.aes = FALSE
-#     ) +
-#     
-#     # Threshold label
-#     geom_text(
-#       data = row_thresh,
-#       aes(
-#         x = pmin(
-#           pmax(onset_rel50_med, t_q05 + 0.5),
-#           t_q95 - 0.5
-#         ),
-#         y = 0.04,
-#         label = paste0(round(onset_rel50_med, 1), " °C"),
-#         colour = col
-#       ),
-#       hjust = 0.5, size = 2.8,
-#       inherit.aes = FALSE
-#     ) +
-#     
-#     # Species label top-left
-#     geom_text(
-#       data = row_thresh,
-#       aes(label = label, colour = col),
-#       x = -Inf, y = 0.97,
-#       hjust = -0.1, vjust = 1,
-#       size = 3, inherit.aes = FALSE
-#     ) +
-#     
-#     facet_wrap(~ species, nrow = 1) +
-#     
-#     # Fix the width of every facet, regardless of species count
-#     ggh4x::force_panelsizes(
-#       cols = grid::unit(panel_width_mm, "mm")
-#     ) +
-#     
-#     scale_x_continuous(
-#       breaks = c(0, 10, 20),
-#       limits = c(-5, 25)
-#     ) +
-#     scale_y_continuous(
-#       limits = c(0, 1),
-#       breaks = c(0, 0.25, 0.50, 0.75, 1.00)
-#     ) +
-#     
-#     labs(
-#       x = if (show_x_axis) "Daily mean air temperature (°C)" else NULL,
-#       y = NULL
-#     ) +
-#     
-#     theme_minimal(base_size = 10) +
-#     theme(
-#       strip.text       = element_blank(),
-#       panel.grid.minor = element_blank(),
-#       panel.grid.major = element_line(colour = "grey92"),
-#       panel.spacing    = grid::unit(0.4, "lines"),
-#       axis.text        = element_text(size = 8),
-#       axis.title.x     = if (show_x_axis) element_text() else element_blank(),
-#       axis.text.x      = if (show_x_axis) element_text() else element_blank(),
-#       axis.ticks.x     = if (show_x_axis) element_line() else element_blank(),
-#       plot.margin      = margin(t = 4, r = 4, b = 2, l = 4)
-#     )
-#   
-#   p
-# }
-# 
 # ── Build three rows ─────────────────────────────────────────────────────────
 row1_sps <- species_meta$species[
   species_meta$wood_type == "tracheid-bearing"
@@ -358,49 +237,6 @@ row3_sps <- species_meta$species[
 p_row1 <- build_row_plot(row1_sps, show_x_axis = FALSE)
 p_row2 <- build_row_plot(row2_sps, show_x_axis = FALSE)
 p_row3 <- build_row_plot(row3_sps, show_x_axis = TRUE)
-
-# # ── Assemble with patchwork ──────────────────────────────────────────────────
-# # Add flexible trailing space after each row's fixed-width panels
-# left_align_row <- function(p) {
-#   gt <- ggplotGrob(p)
-#   
-#   gt <- gtable::gtable_add_cols(
-#     gt,
-#     widths = grid::unit(1, "null"),
-#     pos = -1
-#   )
-#   
-#   patchwork::wrap_elements(full = gt)
-# }
-# 
-# p_combined <- (
-#   left_align_row(p_row1) /
-#     left_align_row(p_row2) /
-#     left_align_row(p_row3)
-# ) +
-#   plot_layout(heights = c(1, 1, 1))
-# 
-# # ── Shared y-axis label ──────────────────────────────────────────────────────
-# p_final <- wrap_elements(p_combined) +
-#   labs(tag = "Fitted probability of registered growth") +
-#   theme(
-#     plot.tag          = element_text(angle = 90, size = 10),
-#     plot.tag.position = "left",
-#     plot.margin       = margin(2, 4, 2, 4)
-#   )
-# 
-# # ── Export ───────────────────────────────────────────────────────────────────
-# dir.create("./figures", recursive = TRUE, showWarnings = FALSE)
-# 
-# ggsave(
-#   "./figures/fig1_gam_curves.pdf",
-#   p_final,
-#   width = 190,
-#   height = 150,
-#   units = "mm"
-# )
-
-
 
 # ── Explanatory key in the empty space beside the middle row ─────────────────
 annotation_key <- grid::grobTree(
@@ -542,7 +378,7 @@ p_final <- wrap_elements(p_combined) +
 ggsave(
   "paper/figures/fig1_probability_curves_by_anatomy.png",
   p_final,
-  width = 190,
-  height = 150,
+  width = 250,
+  height = 180,
   units = "mm"
 )
