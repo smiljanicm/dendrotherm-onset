@@ -261,7 +261,7 @@ annotation_key <- grid::grobTree(
     gp = grid::gpar(fill = "grey50", col = NA, alpha = 0.20)
   ),
   grid::textGrob(
-    "95% bootstrap CI of threshold temperature",
+    "90% bootstrap CI of threshold temperature",
     x = 0.12, y = 0.50, just = "left",
     gp = grid::gpar(fontsize = 7)
   ),
@@ -380,5 +380,6 @@ ggsave(
   p_final,
   width = 250,
   height = 180,
-  units = "mm"
+  units = "mm",
+  dpi=600
 )

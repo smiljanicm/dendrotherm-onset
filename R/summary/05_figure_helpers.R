@@ -41,7 +41,7 @@ fig_png <- function(filename, width, height, draw) {
     width = width,
     height = height,
     units = "in",
-    res = 300,
+    res = 600,
     pointsize = 8,
     bg = "white"
   )

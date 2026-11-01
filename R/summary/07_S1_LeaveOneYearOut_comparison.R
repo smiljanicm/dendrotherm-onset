@@ -146,7 +146,7 @@ fig_png(
       if (pvalues[sp] < 0.05) {
         text(
           mean(sub$d) + 0.012, i - 1 + 0.30,
-          sprintf("p = %.2f", pvalues[sp]),
+          parse(text = fmt_p(pvalues[sp]))[[1]],
           adj = 0, cex = 0.8, col = "grey35"
         )
       }
