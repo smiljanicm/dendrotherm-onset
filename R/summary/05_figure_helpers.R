@@ -67,3 +67,35 @@ fig_png <- function(filename, width, height, draw) {
 fig_alpha <- function(col, alpha) {
   grDevices::adjustcolor(col, alpha.f = alpha)
 }
+
+# Returns plotmath text for parse(text = fmt_p(p))[[1]]
+fmt_p <- function(p) {
+  if (p < 0.01) return("italic(P) < 0.01")
+  if (p < 0.05 && round(p, 2) >= 0.05) {
+    return("italic(P) < 0.05")
+  }
+  sprintf("italic(P) == %.2f", round(p, 2))
+}
+
+# Use a second decimal when one decimal would display a nonzero value as zero.
+fmt_num <- function(x) {
+  vapply(x, function(value) {
+    digits <- 1L
+    if (value != 0 && round(value, digits) == 0) {
+      digits <- 2L
+      while (round(value, digits) == 0) digits <- digits + 1L
+    }
+    gsub("-", "\u2212",
+         sprintf(paste0("%.", digits, "f"), value),
+         fixed = TRUE)
+  }, character(1), USE.NAMES = FALSE)
+}
+
+fmt_ci <- function(est, lo, hi) {
+  sprintf("%s [%s, %s]", fmt_num(est), fmt_num(lo), fmt_num(hi))
+}
+
+# For contrasts displayed with an explicit positive sign.
+fmt_signed <- function(x) {
+  ifelse(x > 0, paste0("+", fmt_num(x)), fmt_num(x))
+}
